@@ -32,6 +32,7 @@ const cn = {
     click_enter_to_rename: '点击或者按Enter键来重命名',
     click_enter_to_ttl: '点击或者按Enter键来修改过期时间',
     confirm_to_delete_key: '确认删除 {key} ?',
+    confirm_to_rename_key: '确认重命名 {old} -> {new} ?',
     edit_line: '修改行',
     auto_refresh: '自动刷新',
     auto_refresh_tip: '自动刷新开关，每{interval}秒刷新一次',
@@ -39,6 +40,7 @@ const cn = {
     collapse_all: '全部折叠',
     expand_all: '全部展开',
     json_format_failed: 'Json 格式化失败',
+    msgpack_format_failed: 'Msgpack 格式化失败',
     php_unserialize_format_failed: 'PHP Unserialize 格式化失败',
     clean_up: '清空',
     redis_console: 'Redis 控制台',
@@ -77,9 +79,11 @@ const cn = {
     update_error: '更新失败',
     update_downloading: '下载中...',
     update_download_progress: '下载进度',
-    update_downloaded: '更新下载完成，重启客户端生效',
-    mac_not_support_auto_update: 'Mac暂时不支持自动更新，请手动下载后重新安装，或者执行\
-    brew cask reinstall another-redis-desktop-manager',
+    update_downloaded: "更新下载完成，重启客户端生效.\
+    [Tips]: 如果您使用的是Windows，关闭软件后，请等待桌面图标刷新到正常状态(约10秒)，然后再重新打开即可",
+    mac_not_support_auto_update: 'Mac暂时不支持自动更新，请手动<a href="https://github.com/qishibo/AnotherRedisDesktopManager/releases">下载</a>后重新安装，\
+    或者执行brew reinstall --cask another-redis-desktop-manager \
+    <br><br>🧡如果您觉得好用，可以通过<a href="https://apps.apple.com/app/id1516451072">AppStore</a>赞助，并由AppStore帮您自动更新',
     font_family: '字体选择',
     font_faq_title: '字体设置说明',
     font_faq: '1. 可以设置多个字体<br>2. 字体选择是有序的，建议首先选择英文字体，然后再选择中文字体<br>\
@@ -98,6 +102,18 @@ const cn = {
     info_disabled: 'Info命令执行异常（可能已被禁用），无法显示Redis信息',
     page_zoom: '页面缩放',
     scan_disabled: 'Scan命令执行异常（可能已被禁用），无法显示Key列表',
+    key_type_not_support: '该类型暂不支持可视化展示，请使用命令行进行操作',
+    delete_folder: '删除文件夹',
+    multiple_select: '多项选择',
+    copy: '复制',
+    keys_to_be_deleted: '即将删除的键值',
+    delete_all: '全部删除',
+    clear_cache: '清除缓存',
+    mark_color: '标记颜色',
+    key_no_permission: '文件读取权限已过期，请手动重新选择密钥文件',
+    toggle_check_all: '全选 | 取消全选',
+    select_lang: '选择语言',
+    clear_cache_tip: '当客户端出现问题时，该操作会删除所有连接和配置，用于恢复客户端',
   },
 };
 

@@ -32,6 +32,7 @@ const en = {
     click_enter_to_rename: 'Click Or Press Enter To Rename',
     click_enter_to_ttl: 'Click Or Press Enter To Modify TTL',
     confirm_to_delete_key: 'Confirm To Delete {key} ?',
+    confirm_to_rename_key: 'Confirm To Rename {old} -> {new} ?',
     edit_line: 'Edit Line',
     auto_refresh: 'Auto Refresh',
     auto_refresh_tip: 'Auto Refresh Switch, Refresh Every {interval} Seconds',
@@ -39,6 +40,7 @@ const en = {
     collapse_all: 'Collapse All',
     expand_all: 'Expand All',
     json_format_failed: 'Json Parse Failed',
+    msgpack_format_failed: 'Msgpack Parse Failed',
     php_unserialize_format_failed: 'PHP Unserialize Failed',
     clean_up: 'Clean Up',
     redis_console: 'Redis Console',
@@ -77,9 +79,11 @@ const en = {
     update_error: 'Update Failed',
     update_downloading: 'Downloading...',
     update_download_progress: 'Download Progress',
-    update_downloaded: 'Update Download Completed, Restart Your App Please',
-    mac_not_support_auto_update: 'Mac Does Not Support Automatic Update, Please Manually Download And Reinstall,\
-    Or Run "brew cask reinstall another-redis-desktop-manager"',
+    update_downloaded: 'Update Download Completed, Restart Your App Please.\
+    [Tips]: If you are using Windows, after closing the app, waiting the desktop icon to refresh to a normal state(about 10 seconds), and then you can reopen it',
+    mac_not_support_auto_update: 'Mac Does Not Support Automatic Update, Please Manually <a href="https://github.com/qishibo/AnotherRedisDesktopManager/releases">Download</a> And Reinstall,\
+    Or Run "brew reinstall --cask another-redis-desktop-manager"\
+    <br><br>🧡if it\'s useful to you ,you can sponsor through <a href="https://apps.apple.com/app/id1516451072">AppStore</a>, and AppStore will automatically update it for you.',
     font_family: 'Font Family',
     font_faq_title: 'Font Setting Instructions',
     font_faq: '1. Multiple fonts can be set<br>\
@@ -98,6 +102,18 @@ const en = {
     info_disabled: 'Info command execution exception(may have been disabled), redis info cannot be displayed',
     page_zoom: 'Page Zoom',
     scan_disabled: 'Scan command execution exception(may have been disabled), key list cannot be displayed',
+    key_type_not_support: 'Visual display is not supported for this type. Please use console',
+    delete_folder: 'Delete Folder',
+    multiple_select: 'Multiple Select',
+    copy: 'Copy',
+    keys_to_be_deleted: 'Keys To Be Deleted',
+    delete_all: 'Delete All',
+    clear_cache: 'Clear Cache',
+    mark_color: 'Mark Color',
+    key_no_permission: 'File read permission has expired, please reselect the key file manually',
+    toggle_check_all: 'Select all | Unselect all',
+    select_lang: 'Select Language',
+    clear_cache_tip: 'When there is a problem with the client, this operation will delete all the connections and configurations to recover the client',
   },
 };
 

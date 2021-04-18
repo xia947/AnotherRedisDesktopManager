@@ -7,12 +7,21 @@ import zhLocale from 'element-ui/lib/locale/lang/zh-CN';
 import zhTwLocale from 'element-ui/lib/locale/lang/zh-TW';
 import trTrLocale from 'element-ui/lib/locale/lang/tr-TR';
 import ruLocale from 'element-ui/lib/locale/lang/ru-RU';
+import ptBrLocale from 'element-ui/lib/locale/lang/pt-br';
+import deLocale from 'element-ui/lib/locale/lang/de';
+import frLocale from 'element-ui/lib/locale/lang/fr';
+import uaLocale from 'element-ui/lib/locale/lang/ua';
+
 
 import en from './langs/en';
 import cn from './langs/cn';
 import tw from './langs/tw';
 import tr from './langs/tr';
 import ru from './langs/ru';
+import pt from './langs/pt';
+import de from './langs/de';
+import fr from './langs/fr';
+import ua from './langs/ua';
 
 Vue.use(VueI18n);
 
@@ -28,7 +37,7 @@ const messages = {
   tw: {
     ...tw,
     ...zhTwLocale,
-  },  
+  },
   tr: {
     ...tr,
     ...trTrLocale,
@@ -36,6 +45,22 @@ const messages = {
   ru: {
     ...ru,
     ...ruLocale,
+  },
+  pt: {
+    ...pt,
+    ...ptBrLocale,
+  },
+  de: {
+    ...de,
+    ...deLocale
+  },
+  fr: {
+    ...fr,
+    ...frLocale
+  },
+  ua: {
+    ...ua,
+    ...uaLocale
   },
 };
 

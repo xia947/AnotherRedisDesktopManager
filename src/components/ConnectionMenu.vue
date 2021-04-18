@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="connection-menu-title">
   <div class="connection-opt-icons">
     <!-- right menu operate icons -->
     <i :title="$t('message.redis_status')"
@@ -7,11 +7,11 @@
       @click.stop.prevent="openStatus">
     </i>
     <i :title="$t('message.redis_console')"
-      class="connection-right-icon fa fa-terminal"
+      class="connection-right-icon fa fa-terminal font-weight-bold"
       @click.stop.prevent="openCli">
     </i>
     <i :title="$t('message.refresh_connection')"
-      class='connection-right-icon el-icon-refresh'
+      class='connection-right-icon el-icon-refresh font-weight-bold'
       @click.stop.prevent="refreshConnection">
     </i>
 
@@ -22,19 +22,37 @@
       :show-timeout=100
       :hide-timeout=300>
       <i class="connection-right-icon el-icon-menu" @click.stop></i>
-      <el-dropdown-menu slot="dropdown">
+      <el-dropdown-menu class='connection-menu-more-ul' slot="dropdown">
+
+        <!-- menu color picker -->
+        <el-tooltip placement="right" effect="light">
+          <el-color-picker
+            slot='content'
+            v-model="menuColor"
+            @change='changeColor'
+            :predefine="['#f56c6c', '#409EFF', '#85ce61', '#c6e2ff']">
+          </el-color-picker>
+
+          <el-dropdown-item>
+            <span><i class='more-operate-ico fa fa-bookmark-o'></i>&nbsp;{{ $t('message.mark_color') }}</span>
+          </el-dropdown-item>
+        </el-tooltip>
+
         <el-dropdown-item @click.native='closeConnection'>
-          <i class='el-icon-close'> {{ $t('message.close_connection') }}</i>
+          <span><i class='more-operate-ico fa fa-power-off'></i>&nbsp;{{ $t('message.close_connection') }}</span>
         </el-dropdown-item>
         <el-dropdown-item @click.native='showEditConnection'>
-          <i class='el-icon-edit-outline'> {{ $t('message.edit_connection') }}</i>
+          <span><i class='more-operate-ico el-icon-edit-outline'></i>&nbsp;{{ $t('message.edit_connection') }}</span>
         </el-dropdown-item>
         <el-dropdown-item @click.native='deleteConnection'>
-          <i class='el-icon-delete'> {{ $t('message.del_connection') }}</i>
+          <span><i class='more-operate-ico el-icon-delete'></i>&nbsp;{{ $t('message.del_connection') }}</span>
         </el-dropdown-item>
-        <el-dropdown-item @click.native='flushDB'>
-          <i class='fa fa-bomb'> {{ $t('message.flushdb') }}</i>
+        <el-dropdown-item @click.native='flushDB' divided>
+          <span><i class='more-operate-ico fa fa-exclamation-triangle'></i>&nbsp;{{ $t('message.flushdb') }}</span>
         </el-dropdown-item>
+
+
+
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -56,7 +74,9 @@ import NewConnectionDialog from '@/components/NewConnectionDialog';
 
 export default {
   data() {
-    return {};
+    return {
+      menuColor: '#409EFF',
+    };
   },
   props: ['config', 'client'],
   components: {NewConnectionDialog},
@@ -65,12 +85,17 @@ export default {
       this.$emit('refreshConnection');
     },
     showEditConnection() {
+      // connection is cloesd, do not display confirm
+      if (!this.client) {
+        return this.$refs.editConnectionDialog.show();
+      }
+
       this.$confirm(
         this.$t('message.close_to_edit_connection'),
         { type: 'warning' },
       ).then(() => {
         this.$bus.$emit('closeConnection');
-        this.$refs.editConnectionDialog.dialogVisible = true;
+        this.$refs.editConnectionDialog.show();
       }).catch(() => {});
     },
     closeConnection() {
@@ -81,7 +106,7 @@ export default {
         this.$bus.$emit('closeConnection');
       }).catch(() => {});
     },
-    editConnectionFinished() {
+    editConnectionFinished(newConfig) {
       this.$bus.$emit('refreshConnections');
     },
     deleteConnection() {
@@ -148,15 +173,16 @@ export default {
         });
       }).catch(() => {});
     },
+    changeColor(color) {
+      this.$emit('changeColor', color);
+    },
   },
 }
 </script>
 
 <style type="text/css">
-  /*el-sub-menu connection name style*/
-  .connection-menu .el-submenu__title {
-    padding-left: 0px !important;
-    padding-right: 0px;
+  .connection-menu-title {
+    margin-left: -20px;
   }
 
   .connection-menu .connection-name {
@@ -194,8 +220,17 @@ export default {
     background: #58707b;
   }
 
-  /*fix more operation icon vertical-center*/
+  /*fix more operation btn icon vertical-center*/
   .connection-menu-more {
     vertical-align: baseline;
+  }
+  /*more operation ul>ico*/
+  .connection-menu-more-ul .more-operate-ico {
+    width: 13px;
+    text-align: center;
+  }
+
+  .font-weight-bold {
+    font-weight: bold;
   }
 </style>

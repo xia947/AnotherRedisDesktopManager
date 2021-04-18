@@ -8,6 +8,7 @@
           :value="$util.bufToString(keyName)"
           @change='changeKeyInput'
           @keyup.enter.native="renameKey"
+          :title="$t('message.click_enter_to_rename')"
           placeholder="KeyName">
           <span slot="prepend" class="key-detail-type">{{ keyType }}</span>
           <i class="el-icon-check el-input__icon cursor-pointer"
@@ -20,7 +21,7 @@
 
       <!-- key ttl -->
       <el-form-item>
-        <el-input v-model="keyTTL" @keyup.enter.native="ttlKey">
+        <el-input v-model="keyTTL" @keyup.enter.native="ttlKey" :title="$t('message.click_enter_to_ttl')">
           <span slot="prepend">TTL</span>
           <i class="el-icon-check el-input__icon cursor-pointer"
             slot="suffix"
@@ -94,28 +95,39 @@ export default {
         });
       }).catch(() => {});
     },
-    renameKey() {
+    renameKey(e) {
+      // input blur to prevent trigger twice by enter
+      e && e.srcElement.blur();
+
       if (this.keyName.equals(this.redisKey)) {
         return;
       }
 
-      this.client.rename(this.redisKey, this.keyName).then((reply) => {
-        if (reply === 'OK') {
-          this.$message.success({
-            message: this.$t('message.modify_success'),
-            duration: 1000,
-          });
+      this.$confirm(
+          this.$t('message.confirm_to_rename_key', {
+            old: this.$util.bufToString(this.redisKey),
+            new: this.$util.bufToString(this.keyName),
+          }),
+          { type: 'warning' },
+      ).then(() => {
+        this.client.rename(this.redisKey, this.keyName).then((reply) => {
+          if (reply === 'OK') {
+            this.$message.success({
+              message: this.$t('message.modify_success'),
+              duration: 1000,
+            });
 
-          this.refreshKeyList(this.redisKey);
-          this.refreshKeyList(this.keyName, 'add');
-          this.$bus.$emit('clickedKey', this.client, this.keyName);
-        }
-      }).catch(e => {
-        this.$message.error({
-          message: e.message,
-          duration: 3000,
+            this.refreshKeyList(this.redisKey);
+            this.refreshKeyList(this.keyName, 'add');
+            this.$bus.$emit('clickedKey', this.client, this.keyName);
+          }
+        }).catch(e => {
+          this.$message.error({
+            message: e.message,
+            duration: 3000,
+          });
         });
-      });
+      }).catch(() => {});
     },
     ttlKey() {
       // ttl <= 0
@@ -162,7 +174,10 @@ export default {
   .key-detail-type {
     text-transform: capitalize;
     text-align: center;
-    width: 28px;
+    min-width: 34px;
     display: inline-block;
+  }
+  .cursor-pointer {
+    cursor: pointer;
   }
 </style>
